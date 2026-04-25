@@ -28,7 +28,6 @@ from anthropic import AsyncAnthropic
 from dotenv import load_dotenv
 from tenacity import retry, stop_after_attempt, wait_exponential
 
-from drift.oauth import resolve_anthropic_key
 from drift.rubric import build_prompt
 
 ROOT = Path(__file__).resolve().parents[2]
@@ -124,8 +123,9 @@ class AnthropicRater(Rater):
     name = "opus_4_7"
 
     def __init__(self) -> None:
-        key, mode = resolve_anthropic_key()
-        self.billing_mode = mode
+        key = os.environ.get("ANTHROPIC_API_KEY")
+        if not key:
+            raise RuntimeError("ANTHROPIC_API_KEY missing")
         self.client = AsyncAnthropic(api_key=key)
         self.model = "claude-opus-4-7"
 
@@ -289,7 +289,7 @@ async def amain(args: argparse.Namespace) -> None:
     }
     raters = [rater_factories[n]() for n in enabled]
     for r in raters:
-        extra = f" ({getattr(r, 'billing_mode', '?')})" if isinstance(r, AnthropicRater) else ""
+        extra = ""
         print(f"  rater: {r.name}{extra}")
 
     await asyncio.gather(*[run_rater(r, rows, run_dir, anchors_text) for r in raters])
