@@ -1,0 +1,9 @@
+zone_2025,zone_2026_median,count
+Green Light,Green Light,361
+Green Light,R&D Opportunity,3
+Low Priority,Low Priority,4
+Low Priority,Red Light,102
+R&D Opportunity,Green Light,98
+R&D Opportunity,R&D Opportunity,9
+Red Light,Low Priority,2
+Red Light,Red Light,265

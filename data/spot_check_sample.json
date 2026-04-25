@@ -1,0 +1,122 @@
+[
+  {
+    "task_id": 15897,
+    "task": "Monitor inventory transactions at warehouse facilities to assess receiving, storage, shipping, or inventory integrity.",
+    "occupation": "Logistics Analysts",
+    "predicted_cap": 2
+  },
+  {
+    "task_id": 15458,
+    "task": "Monitor meters, flow gauges, or other real-time data to ensure proper operation of biofuels production equipment, implementing corrective measures as needed.",
+    "occupation": "Biofuels Production Managers",
+    "predicted_cap": 2
+  },
+  {
+    "task_id": 12301,
+    "task": "Control, monitor, or operate equipment that regulates or distributes electricity or steam, using data obtained from instruments or computers.",
+    "occupation": "Power Distributors and Dispatchers",
+    "predicted_cap": 2
+  },
+  {
+    "task_id": 14683,
+    "task": "Design and conduct hardware or software tests.",
+    "occupation": "Computer Systems Engineers/Architects",
+    "predicted_cap": 2
+  },
+  {
+    "task_id": 1482,
+    "task": "Analyze test results in relation to design or rated specifications and test objectives, and modify or adjust equipment to meet specifications.",
+    "occupation": "Mechanical Engineering Technologists and Technicians",
+    "predicted_cap": 2
+  },
+  {
+    "task_id": 299,
+    "task": "Create designs, concepts, and sample layouts, based on knowledge of layout principles and esthetic design concepts.",
+    "occupation": "Graphic Designers",
+    "predicted_cap": 3
+  },
+  {
+    "task_id": 21511,
+    "task": "Examine and evaluate financial and information systems, recommending controls to ensure system reliability and data integrity.",
+    "occupation": "Accountants and Auditors",
+    "predicted_cap": 3
+  },
+  {
+    "task_id": 20736,
+    "task": "Specify system components or direct modification of products to ensure conformance with engineering design, performance specifications, or environmental regulations.",
+    "occupation": "Mechanical Engineers",
+    "predicted_cap": 3
+  },
+  {
+    "task_id": 16167,
+    "task": "Assign duties, responsibilities, and spans of authority to project personnel.",
+    "occupation": "Information Technology Project Managers",
+    "predicted_cap": 3
+  },
+  {
+    "task_id": 306,
+    "task": "Develop graphics and layouts for product illustrations, company logos, and Web sites.",
+    "occupation": "Graphic Designers",
+    "predicted_cap": 3
+  },
+  {
+    "task_id": 3465,
+    "task": "Test, maintain, and monitor computer programs and systems, including coordinating the installation of computer programs and systems.",
+    "occupation": "Computer Systems Analysts",
+    "predicted_cap": 4
+  },
+  {
+    "task_id": 2501,
+    "task": "Calculate and prepare checks for utilities, taxes, and other payments.",
+    "occupation": "Bookkeeping, Accounting, and Auditing Clerks",
+    "predicted_cap": 4
+  },
+  {
+    "task_id": 87,
+    "task": "Prepare cost and expenditure statements and other necessary documentation at regular intervals for the duration of the project.",
+    "occupation": "Cost Estimators",
+    "predicted_cap": 4
+  },
+  {
+    "task_id": 2806,
+    "task": "Provide services to customers, such as order placement or account information.",
+    "occupation": "Secretaries and Administrative Assistants, Except Legal, Medical, and Executive",
+    "predicted_cap": 4
+  },
+  {
+    "task_id": 23951,
+    "task": "Post and update content on the company's Web site and social media outlets.",
+    "occupation": "Public Relations Specialists",
+    "predicted_cap": 4
+  },
+  {
+    "task_id": 15709,
+    "task": "Deliver e-mail confirmation of completed transactions and shipment.",
+    "occupation": "Online Merchants",
+    "predicted_cap": 5
+  },
+  {
+    "task_id": 20282,
+    "task": "Set up and manage paper or electronic filing systems, recording information, updating paperwork, or maintaining documents, such as attendance records, correspondence, or other material.",
+    "occupation": "Secretaries and Administrative Assistants, Except Legal, Medical, and Executive",
+    "predicted_cap": 5
+  },
+  {
+    "task_id": 3414,
+    "task": "Compute payment schedules.",
+    "occupation": "Loan Officers",
+    "predicted_cap": 5
+  },
+  {
+    "task_id": 3967,
+    "task": "Maintain records and files of work and revisions.",
+    "occupation": "Technical Writers",
+    "predicted_cap": 5
+  },
+  {
+    "task_id": 2827,
+    "task": "Convert various types of files for printing or for the Internet, using computer software.",
+    "occupation": "Desktop Publishers",
+    "predicted_cap": 5
+  }
+]
