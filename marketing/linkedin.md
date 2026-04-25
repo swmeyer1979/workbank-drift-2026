@@ -18,4 +18,6 @@ The original paper's "41% of YC startups target misaligned tasks" finding still 
 
 Capability is not deployment. This is a feasibility claim, not a displacement estimate.
 
-Repo + paper + dashboard: [link]
+Repo: github.com/swmeyer1979/workbank-drift-2026
+Dashboard: workbank-drift-dashboard.vercel.app
+Paper: github.com/swmeyer1979/workbank-drift-2026/blob/master/paper.md

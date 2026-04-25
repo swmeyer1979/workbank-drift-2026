@@ -13,7 +13,7 @@ This repo recomputes the **capability** axis against the **April-2026 frontier**
 
 > This is a drift study using fixed 2025 worker preferences. The capability axis here is a frontier-model **self-assessment** with human calibration, **not** a deployment claim. A task scoring "capability ≥ 3" means an ensemble of 2026 frontier models judges the task achievable with supervision, not that any organization has deployed an agent doing it. The 2025 framework's discriminative power degenerates at frontier — when ~98% of in-scope tasks score ≥ 3, the four-zone framework has effectively collapsed to two zones, which is itself a finding about the framework, not just about capability.
 
-**Live dashboard:** _TBD_
+**Live dashboard:** [workbank-drift-dashboard.vercel.app](https://workbank-drift-dashboard.vercel.app/)
 **Findings (1-page):** [`findings.md`](./findings.md) — _populated after scoring run_
 
 ---
