@@ -1,0 +1,297 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<title>WORKBank Drift 2026 — Dashboard</title>
+<script src="https://cdn.tailwindcss.com"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
+<script src="https://cdn.jsdelivr.net/npm/@observablehq/plot@0.6"></script>
+<script src="https://cdn.jsdelivr.net/npm/d3-sankey@0.12"></script>
+<style>
+  body { font-family: ui-sans-serif, system-ui, -apple-system, "SF Pro Text", sans-serif; }
+  .zone-Green { color: #047857; }
+  .zone-Red { color: #b91c1c; }
+  .zone-RD { color: #b45309; }
+  .zone-Low { color: #6b7280; }
+  details > summary { cursor: pointer; user-select: none; }
+  table { border-collapse: collapse; }
+  td, th { padding: 4px 8px; text-align: left; vertical-align: top; font-size: 0.85rem; }
+  thead th { border-bottom: 1px solid #d1d5db; background: #f9fafb; position: sticky; top: 0; }
+  tbody tr:nth-child(even) { background: #f9fafb; }
+  tbody tr:hover { background: #fef3c7; }
+</style>
+</head>
+<body class="bg-white text-gray-900">
+<div class="max-w-7xl mx-auto p-6">
+
+<!-- header -->
+<header class="mb-6 pb-4 border-b">
+  <h1 class="text-3xl font-semibold">WORKBank Drift 2026</h1>
+  <p class="text-gray-600 mt-1">Recomputing AI task capability for 844 occupations against the April-2026 frontier.</p>
+  <p class="text-sm text-gray-500 mt-2">
+    Builds on Stanford SALT Lab's <a href="https://futureofwork.saltlab.stanford.edu" class="underline">WORKBank</a>
+    (Shao et al., 2025). Worker desire held at 2025 value; capability rescored with Claude Opus 4.7, Kimi K2.6, GPT-5.5.
+    See <a href="https://github.com/sammeyer-ai/workbank-drift-2026" class="underline">repo</a>,
+    <a href="paper.md" class="underline">paper</a>,
+    <a href="findings.md" class="underline">findings</a>.
+  </p>
+</header>
+
+<!-- headline stats -->
+<section class="grid grid-cols-2 md:grid-cols-4 gap-4 mb-6">
+  <div class="border rounded p-4">
+    <div class="text-xs text-gray-500 uppercase tracking-wide">Tasks ≥3 in 2026</div>
+    <div class="text-3xl font-semibold mt-1">97.6%</div>
+    <div class="text-xs text-gray-500">up from 75% in 2025</div>
+  </div>
+  <div class="border rounded p-4">
+    <div class="text-xs text-gray-500 uppercase tracking-wide">Tasks migrated</div>
+    <div class="text-3xl font-semibold mt-1">205 / 844</div>
+    <div class="text-xs text-gray-500">24%, 95% CI [180, 230]</div>
+  </div>
+  <div class="border rounded p-4">
+    <div class="text-xs text-gray-500 uppercase tracking-wide">R&amp;D → Green</div>
+    <div class="text-3xl font-semibold mt-1 text-emerald-700">98</div>
+    <div class="text-xs text-gray-500">desired help arrived</div>
+  </div>
+  <div class="border rounded p-4">
+    <div class="text-xs text-gray-500 uppercase tracking-wide">Low → Red</div>
+    <div class="text-3xl font-semibold mt-1 text-red-700">102</div>
+    <div class="text-xs text-gray-500">undesired capability arrived</div>
+  </div>
+</section>
+
+<!-- Sankey -->
+<section class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">Zone migration (2025 → 2026)</h2>
+  <p class="text-sm text-gray-600 mb-2">Width = task count. Hold desire fixed at 2025; capability rescored under 2026 ensemble.</p>
+  <div id="sankey" class="border rounded p-2"></div>
+</section>
+
+<!-- Bar charts -->
+<section class="grid md:grid-cols-2 gap-6 mb-8">
+  <div>
+    <h3 class="font-semibold mb-1">Zone population, 2025 vs 2026</h3>
+    <div id="zonebar"></div>
+  </div>
+  <div>
+    <h3 class="font-semibold mb-1">Capability distribution, 2025 vs 2026</h3>
+    <div id="capdist"></div>
+  </div>
+</section>
+
+<!-- Filter + table -->
+<section class="mb-8">
+  <h2 class="text-xl font-semibold mb-2">Tasks (filterable)</h2>
+  <div class="flex flex-wrap gap-3 mb-3 text-sm">
+    <label>Migration:
+      <select id="f-mig" class="border rounded px-2 py-1">
+        <option value="">all</option>
+        <option>R&D->Green</option>
+        <option>Low->Red</option>
+        <option>Green->Green</option>
+        <option>Red->Red</option>
+        <option>R&D->R&D</option>
+        <option>Low->Low</option>
+        <option>Green->R&D</option>
+        <option>Red->Low</option>
+      </select>
+    </label>
+    <label>2025 zone:
+      <select id="f-z25" class="border rounded px-2 py-1">
+        <option value="">all</option>
+        <option>Green Light</option>
+        <option>Red Light</option>
+        <option>R&D Opportunity</option>
+        <option>Low Priority</option>
+      </select>
+    </label>
+    <label>2026 zone:
+      <select id="f-z26" class="border rounded px-2 py-1">
+        <option value="">all</option>
+        <option>Green Light</option>
+        <option>Red Light</option>
+        <option>R&D Opportunity</option>
+        <option>Low Priority</option>
+      </select>
+    </label>
+    <label>Near-threshold only:
+      <input type="checkbox" id="f-near" />
+    </label>
+    <label>Search occupation/task:
+      <input type="text" id="f-text" class="border rounded px-2 py-1" placeholder="e.g. nurse, programming">
+    </label>
+    <span id="f-count" class="ml-auto text-gray-500"></span>
+  </div>
+  <div class="overflow-auto max-h-[640px] border rounded">
+    <table id="tbl" class="w-full">
+      <thead>
+        <tr>
+          <th>occupation</th>
+          <th>task</th>
+          <th class="text-right">cap 2025</th>
+          <th class="text-right">cap 2026 (med)</th>
+          <th class="text-right">Δ</th>
+          <th>zone 2025</th>
+          <th>zone 2026</th>
+          <th>migration</th>
+          <th class="text-right">stddev</th>
+        </tr>
+      </thead>
+      <tbody></tbody>
+    </table>
+  </div>
+</section>
+
+<footer class="mt-10 pt-4 border-t text-xs text-gray-500">
+  <div>Capability axis is a frontier-model self-assessment with calibrated human anchors. <strong>Capability ≠ deployment.</strong> See paper §5.2.</div>
+  <div class="mt-1">© 2026 Sam Meyer. MIT-licensed code and derivative tables. Upstream WORKBank dataset is fetched at build time and not redistributed (no upstream license declared as of 2026-04-24).</div>
+</footer>
+
+</div>
+
+<script>
+const ZONES = ["Green Light","Red Light","R&D Opportunity","Low Priority"];
+const ZONE_COLOR = {
+  "Green Light":"#10b981",
+  "Red Light":"#ef4444",
+  "R&D Opportunity":"#f59e0b",
+  "Low Priority":"#9ca3af",
+};
+const SHORT = {"Green Light":"Green","Red Light":"Red","R&D Opportunity":"R&D","Low Priority":"Low"};
+
+let DATA = [];
+let FILTERED = [];
+
+(async function init() {
+  const resp = await fetch('public/data.json');
+  DATA = await resp.json();
+  renderSankey();
+  renderZoneBar();
+  renderCapDist();
+  attachFilters();
+  applyFilters();
+})();
+
+function renderSankey() {
+  const counts = {};
+  for (const r of DATA) {
+    const k = (r.zone_2025||"") + " >> " + (r.zone_2026_median||"");
+    counts[k] = (counts[k]||0)+1;
+  }
+  const links = [];
+  const nodes = [];
+  const idx = new Map();
+  function add(n) { if (!idx.has(n)) { idx.set(n, nodes.length); nodes.push({name:n}); } return idx.get(n); }
+  for (const z of ZONES) { add(z + " (2025)"); }
+  for (const z of ZONES) { add(z + " (2026)"); }
+  for (const k in counts) {
+    const [z1,z2] = k.split(" >> ");
+    if (!z1 || !z2) continue;
+    links.push({source: idx.get(z1+" (2025)"), target: idx.get(z2+" (2026)"), value: counts[k]});
+  }
+  const width = 920, height = 420;
+  const sankey = d3.sankey().nodeWidth(15).nodePadding(10).extent([[1,1],[width-1,height-6]]);
+  const graph = sankey({nodes: nodes.map(d=>Object.assign({},d)), links: links.map(d=>Object.assign({},d))});
+  const svg = d3.select("#sankey").html("").append("svg").attr("viewBox",[0,0,width,height]).attr("style","width:100%;height:auto");
+  svg.append("g").selectAll("rect")
+    .data(graph.nodes).join("rect")
+    .attr("x",d=>d.x0).attr("y",d=>d.y0).attr("height",d=>d.y1-d.y0).attr("width",d=>d.x1-d.x0)
+    .attr("fill",d=>{ const z = d.name.replace(/ \((2025|2026)\)$/,""); return ZONE_COLOR[z] || "#888"; });
+  svg.append("g").attr("fill","none").attr("stroke-opacity",0.4).selectAll("path")
+    .data(graph.links).join("path")
+    .attr("d", d3.sankeyLinkHorizontal())
+    .attr("stroke",d=>{ const z = d.source.name.replace(/ \((2025|2026)\)$/,""); return ZONE_COLOR[z]; })
+    .attr("stroke-width",d=>Math.max(1,d.width))
+    .append("title").text(d=>`${d.source.name} → ${d.target.name}: ${d.value}`);
+  svg.append("g").style("font","12px sans-serif").selectAll("text")
+    .data(graph.nodes).join("text")
+    .attr("x",d=>d.x0<width/2 ? d.x1+6 : d.x0-6)
+    .attr("y",d=>(d.y0+d.y1)/2)
+    .attr("dy","0.35em")
+    .attr("text-anchor",d=>d.x0<width/2 ? "start" : "end")
+    .text(d=>d.name);
+}
+
+function renderZoneBar() {
+  const rows = [];
+  for (const z of ZONES) {
+    rows.push({zone:z, year:"2025", count: DATA.filter(d=>d.zone_2025===z).length});
+    rows.push({zone:z, year:"2026", count: DATA.filter(d=>d.zone_2026_median===z).length});
+  }
+  const plot = Plot.plot({
+    height: 220, marginLeft: 100,
+    color: {legend:true, domain:["2025","2026"], range:["#9ca3af","#1f2937"]},
+    x: {label:"tasks"},
+    y: {label:null},
+    marks: [
+      Plot.barX(rows, {x:"count", y:"zone", fill:"year", fy:"year", sort:{y:"-x"}}),
+      Plot.text(rows, {x:"count", y:"zone", fy:"year", text:"count", textAnchor:"start", dx:3})
+    ]
+  });
+  document.getElementById("zonebar").replaceChildren(plot);
+}
+
+function renderCapDist() {
+  const bins = [];
+  for (let i=1; i<=5; i++) {
+    bins.push({score:i, year:"2025", count: DATA.filter(d=>Math.round(d.capacity_2025)===i).length});
+    bins.push({score:i, year:"2026", count: DATA.filter(d=>d.capability_2026_median===i).length});
+  }
+  const plot = Plot.plot({
+    height: 220, marginLeft: 50,
+    color: {legend:true, domain:["2025","2026"], range:["#9ca3af","#1f2937"]},
+    x: {label:"capability score (1-5)"},
+    y: {label:"tasks"},
+    marks: [Plot.barY(bins, {x:"score", y:"count", fill:"year", fx:"year"})]
+  });
+  document.getElementById("capdist").replaceChildren(plot);
+}
+
+function attachFilters() {
+  ["f-mig","f-z25","f-z26","f-near","f-text"].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener("input", applyFilters);
+  });
+}
+
+function applyFilters() {
+  const mig = document.getElementById("f-mig").value;
+  const z25 = document.getElementById("f-z25").value;
+  const z26 = document.getElementById("f-z26").value;
+  const near = document.getElementById("f-near").checked;
+  const text = document.getElementById("f-text").value.trim().toLowerCase();
+  FILTERED = DATA.filter(r =>
+    (!mig || r.migration_median===mig) &&
+    (!z25 || r.zone_2025===z25) &&
+    (!z26 || r.zone_2026_median===z26) &&
+    (!near || r.near_threshold===true) &&
+    (!text || (r.occupation||"").toLowerCase().includes(text) || (r.task||"").toLowerCase().includes(text))
+  );
+  renderTable();
+}
+
+function renderTable() {
+  const tbody = document.querySelector("#tbl tbody");
+  document.getElementById("f-count").textContent = `${FILTERED.length} of ${DATA.length} tasks`;
+  const sorted = FILTERED.slice().sort((a,b)=>(b.delta_median||0)-(a.delta_median||0)).slice(0, 1000);
+  tbody.innerHTML = sorted.map(r => `
+    <tr>
+      <td>${escapeHtml(r.occupation||"")}</td>
+      <td>${escapeHtml(r.task||"").slice(0,140)}</td>
+      <td class="text-right tabular-nums">${r.capacity_2025}</td>
+      <td class="text-right tabular-nums">${r.capability_2026_median}</td>
+      <td class="text-right tabular-nums">${r.delta_median>0?"+":""}${r.delta_median}</td>
+      <td>${escapeHtml(r.zone_2025||"")}</td>
+      <td>${escapeHtml(r.zone_2026_median||"")}</td>
+      <td>${escapeHtml(r.migration_median||"")}</td>
+      <td class="text-right tabular-nums">${r.cap_rater_stddev}</td>
+    </tr>`).join("");
+}
+
+function escapeHtml(s) { return String(s).replace(/[<>&"']/g, c=>({ "<":"&lt;",">":"&gt;","&":"&amp;",'"':"&quot;","'":"&#39;" }[c])); }
+</script>
+
+</body>
+</html>

@@ -1,0 +1,138 @@
+# April-2026 frontier benchmark snapshots.
+#
+# Every entry must cite a primary source (vendor model card, leaderboard page,
+# official paper). If a score is unavailable, leave null and document `status`.
+# Screenshots of each source land in data/benchmark_snapshots/<benchmark>/<model>.png
+# with the retrieval date in the filename.
+#
+# NEVER fabricate. Empty cell beats guessed cell. Raters treat null as "no anchor".
+
+retrieval_date: 2026-04-24
+
+# IMPORTANT: numbers below were extracted from third-party aggregator articles,
+# not primary vendor model cards. Before publishing, every score must be
+# re-verified against Anthropic / Google / OpenAI's own model-card page and
+# a dated screenshot archived in data/benchmark_snapshots/.
+# Berkeley RDI (2026) showed several agent benchmarks are exploitable to
+# near-perfect scores without solving tasks — treat agent benchmarks with caution.
+
+models:
+  claude_opus_4_7:
+    vendor: Anthropic
+    card: https://www.anthropic.com/claude/opus
+  gemini_3_pro:
+    vendor: Google
+    card: https://deepmind.google/technologies/gemini/pro/
+  gpt_5_5:
+    vendor: OpenAI
+    card: https://openai.com/index/gpt-5/
+
+benchmarks:
+
+  swe_bench_verified:
+    description: "500 human-validated GitHub issues; resolve-rate with agent harness."
+    task_families: [software_engineering]
+    scores:
+      claude_opus_4_7: { score: 87.6, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained",    status: unverified }
+      gemini_3_pro:    { score: 76.2, source: "vellum.ai/blog/google-gemini-3-benchmarks",               status: unverified }
+      gpt_5_5:         { score: 88.7, source: "tokenmix.ai/blog/gpt-5-5-spud-review (Apr 2026)",         status: unverified }
+
+  swe_bench_pro:
+    description: "Harder multi-language SWE-bench variant."
+    task_families: [software_engineering]
+    scores:
+      claude_opus_4_7: { score: 64.3, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained",  status: unverified }
+      gemini_3_pro:    { score: 54.2, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained (Gemini 3.1 Pro cited)", status: unverified }
+      gpt_5_5:         { score: 58.6, source: "tokenmix.ai/blog/gpt-5-5-spud-review (Apr 2026)",      status: unverified }
+
+  gaia:
+    description: "GAIA real-world assistant benchmark, Level 1-3, pass@1."
+    task_families: [multi_step_web_agent, research_assistant]
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score: null, source: null, status: pending }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  webarena:
+    description: "Realistic web tasks across 5 domains."
+    task_families: [multi_step_web_agent, desktop_automation]
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score: null, source: null, status: pending }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  osworld_verified:
+    description: "Multimodal desktop OS control tasks (Verified subset)."
+    task_families: [desktop_automation, gui_control]
+    scores:
+      claude_opus_4_7: { score: 78.0, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained",  status: unverified }
+      gemini_3_pro:    { score: null, source: null, status: pending }
+      gpt_5_5:         { score: 78.7, source: "web search: OpenAI GPT-5.5 announcement (Apr 2026)",   status: unverified }
+
+  mmmlu:
+    description: "Multilingual MMLU (14 languages)."
+    task_families: [general_knowledge, reasoning]
+    scores:
+      claude_opus_4_7: { score: 91.5, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained", status: unverified }
+      gemini_3_pro:    { score: 91.8, source: "vellum.ai/blog/google-gemini-3-benchmarks",            status: unverified }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  mmlu_pro:
+    description: "Robust MMLU successor, 10-option multi-choice."
+    task_families: [general_knowledge, reasoning]
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score: 90.10, source: "vals.ai/benchmarks/mmlu_pro (Nov-2025 Gemini 3 Pro)", status: unverified }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  gpqa_diamond:
+    description: "Graduate-level STEM questions, expert-validated."
+    task_families: [scientific_reasoning]
+    scores:
+      claude_opus_4_7: { score: 94.2, source: "vellum.ai/blog/claude-opus-4-7-benchmarks-explained", status: unverified }
+      gemini_3_pro:    { score: 91.9, source: "vellum.ai/blog/google-gemini-3-benchmarks",            status: unverified }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  humanitys_last_exam:
+    description: "HLE, frontier knowledge; no tools vs with tools variants."
+    task_families: [general_knowledge, reasoning, research_assistant]
+    scores:
+      claude_opus_4_7: { score_no_tools: 46.9, score_with_tools: 54.7, source: "vellum.ai", status: unverified }
+      gemini_3_pro:    { score_no_tools: 37.5, source: "vellum.ai/blog/google-gemini-3-benchmarks", status: unverified }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  aime_2025:
+    description: "American Invitational Mathematics Exam 2025."
+    task_families: [mathematical_reasoning]
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score_no_tools: 95.0, score_with_tools: 100.0, source: "vellum.ai", status: unverified }
+      gpt_5_5:         { score_no_tools: 100.0, source: "tokenmix.ai GPT-5.5 Thinking", status: unverified }
+
+  livecodebench_pro:
+    description: "Contamination-free competitive programming, Elo rating."
+    task_families: [code_authoring, algorithmic_reasoning]
+    unit: elo
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score: 2439, source: "vellum.ai/blog/google-gemini-3-benchmarks", status: unverified }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+  humaneval_plus:
+    description: "HumanEval+ extended test cases, pass@1."
+    task_families: [code_authoring]
+    scores:
+      claude_opus_4_7: { score: null, source: null, status: pending }
+      gemini_3_pro:    { score: null, source: null, status: pending }
+      gpt_5_5:         { score: null, source: null, status: pending }
+
+# Methodology caveat — cite in README:
+#   Berkeley RDI (2026) found SWE-bench Verified, Terminal-Bench, WebArena, and GAIA
+#   can be gamed to near-perfect scores without solving underlying tasks. Agent-family
+#   anchors (SWE-bench, OSWorld, WebArena, GAIA) should be interpreted as upper bounds.
+
+# Task-family → rubric-cap rules (no benchmark can score these above the cap):
+family_caps:
+  physical_embodied: 2           # no dexterous embodiment at frontier 2026-04
+  continuous_interpersonal: 3    # voice agents exist but sustained empathy unproven
+  safety_critical_unsupervised: 3
