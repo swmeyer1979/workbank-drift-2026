@@ -68,7 +68,7 @@ uv run score-capability       # ensemble scoring pipeline (requires API keys / O
 uv run build-drift-table      # join, aggregate, classify zones, emit derivative CSVs
 ```
 
-Credentials: see [`.env.example`](./.env.example). Claude Opus 4.7 uses OAuth subscription billing when available; falls back to `ANTHROPIC_API_KEY`. GPT-5.5 requires `OPENAI_API_KEY`. Kimi K2.6 routed via OpenRouter (`OPENROUTER_API_KEY`).
+Credentials: see [`.env.example`](./.env.example). Claude Opus 4.7 requires `ANTHROPIC_API_KEY`. GPT-5.5 requires `OPENAI_API_KEY`. Kimi K2.6 (and optionally Grok 4.20) is routed via OpenRouter (`OPENROUTER_API_KEY`).
 
 > **Ensemble note (2026-04-25):** This study originally specified Gemini 3 Pro as the third rater. Mid-pipeline the gemini-3-pro-preview free-tier daily quota (250 req/day) was exhausted before the 844-task run completed. Gemini 3 Pro is replaced with **Moonshot Kimi K2.6** for production scoring. Calibration metrics for both ensembles are reported side-by-side in [`reports/calibration.md`](./reports/calibration.md).
 
