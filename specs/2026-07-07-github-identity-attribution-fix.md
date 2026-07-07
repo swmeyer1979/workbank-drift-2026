@@ -16,7 +16,7 @@ Use Sam's GitHub identity for `swmeyer1979` on repo commits.
 ## Acceptance Criteria
 
 - Local repo git config uses `Sam Meyer <96443875+swmeyer1979@users.noreply.github.com>`.
-- Recent rewritten commits link to GitHub login `swmeyer1979`.
+- Every commit on `master` links to GitHub login `swmeyer1979`.
 - `origin/master` points at local `HEAD`.
 - No `CEO Agent` or `ceo@paperclip.local` remains on the branch path.
 
