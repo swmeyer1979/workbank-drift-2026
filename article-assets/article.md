@@ -1,5 +1,7 @@
 # Stanford's Job-by-Job AI Capability Map Got Rewritten in 11 Months
 
+By Sam Meyer
+
 In May 2025, Stanford's SALT Lab published WORKBank — a database of 844 occupational tasks across 104 U.S. occupations, scored on two axes: how much workers want AI to help with each task, and how capable AI agents are at doing it. The paper, by [@EchoShao8899](https://x.com/EchoShao8899), [@Diyi_Yang](https://x.com/Diyi_Yang), [@erikbryn](https://x.com/erikbryn) and colleagues, sorted every task into one of four zones:
 
 - **Green Light** — workers want AI to help, AI is capable

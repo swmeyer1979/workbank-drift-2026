@@ -1,5 +1,7 @@
 # Tweet drafts
 
+Author: Sam Meyer
+
 ## Variant A — direct finding
 
 Stanford SALT Lab's WORKBank classified 844 jobs into 4 zones by worker-desire × AI-capability in mid-2025. I rescored the capability axis against the April-2026 frontier:

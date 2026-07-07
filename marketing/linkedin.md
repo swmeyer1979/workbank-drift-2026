@@ -1,5 +1,7 @@
 # LinkedIn post — 300 words
 
+Author: Sam Meyer
+
 **WORKBank Drift 2026: what one year did to AI capability on real jobs**
 
 Stanford SALT Lab published WORKBank in mid-2025 — a database of 844 occupational tasks across 104 U.S. occupations, scored on two axes: how much workers want AI to help with each task, and how capable AI agents are at doing it. Their headline framework split tasks into four zones: Green Light (workers want it, AI can do it), Red Light (AI can do it, workers don't want it), R&D Opportunity (workers want it, AI can't yet), and Low Priority (neither).
