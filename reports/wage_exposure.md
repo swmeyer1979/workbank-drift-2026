@@ -1,55 +1,54 @@
 # Wage-bill exposure
 
-Joins occupation mean annual wage (BLS via WORKBank metadata, M2024) and occupation employment to the 2026 zone migration table.
-Reported per migration class. Occupation-deduped (one occupation may host many tasks; counted once).
+Joins occupation mean annual wage and occupation employment from WORKBank metadata to the 2026 zone migration table. Reported per migration class. Occupation-deduped within each migration class; one occupation may appear in multiple classes when different tasks moved differently.
 
-**In-scope coverage:** 104 occupations / 22.3M workers / $1977494.53T wage bill.
+**In-scope coverage:** 104 occupations / 22.3M workers / $1,977.5B wage bill.
 
-## Migration class — wage and employment exposure
+## Migration class - wage and employment exposure
 
 | migration | n occupations | workers (M) | wage bill ($B) | mean wage ($) |
 |---|---:|---:|---:|---:|
-| R&D->Green | 48 | 5.82 | 578640.08 | 112,918,333 |
-| Low->Red | 52 | 9.39 | 849643.55 | 102,078,462 |
-| Green->R&D | 3 | 0.33 | 33242.41 | 105,405,000 |
-| Red->Low | 3 | 1.82 | 95100.36 | 154,370,000 |
-| R&D->R&D | 9 | 1.81 | 114063.75 | 99,315,000 |
-| Low->Low | 4 | 0.18 | 12533.83 | 87,910,000 |
-| Green->Green | 94 | 21.45 | 1900396.93 | 96,290,000 |
-| Red->Red | 79 | 19.42 | 1558215.64 | 84,905,085 |
+| R&D->Green | 46 | 5.71 | 570.9 | 99,944 |
+| Low->Red | 52 | 9.39 | 849.6 | 90,482 |
+| Green->R&D | 3 | 0.33 | 33.2 | 101,426 |
+| Red->Low | 2 | 0.08 | 12.3 | 158,806 |
+| R&D->R&D | 13 | 3.06 | 191.9 | 62,619 |
+| Low->Low | 4 | 1.04 | 79.2 | 75,826 |
+| Green->Green | 94 | 21.45 | 1,900.4 | 88,589 |
+| Red->Red | 79 | 19.42 | 1,558.2 | 80,218 |
 
 ## Headline numbers
 
-- **Low→Red**: 52 occupations, 9.4M workers, **$849643.55T wage bill** affected. Tasks workers did not want automated, frontier crossed threshold anyway.
-- **R&D→Green**: 48 occupations, 5.8M workers, **$578640.08T wage bill** affected. Tasks workers wanted automated; capability now delivers.
+- **Low→Red**: 52 occupations, 9.4M workers, **$850B wage bill** affected. Tasks workers did not want automated crossed the capability threshold.
+- **R&D→Green**: 46 occupations, 5.7M workers, **$571B wage bill** affected. Tasks workers wanted automated now clear the capability threshold.
 
 ## Top 20 occupations by exposed wage bill (any migration)
 
 | occupation | wage bill ($B) | workers (K) | mean wage ($) |
 |---|---:|---:|---:|
-| Computer and Information Systems Managers | 121435.90 | 646.0 | 187,990,000 |
-| Secretaries and Administrative Assistants, Except  | 82789.74 | 1737.8 | 47,640,000 |
-| Medical and Health Services Managers | 77933.14 | 565.8 | 137,730,000 |
-| Bookkeeping, Accounting, and Auditing Clerks | 75729.16 | 1455.8 | 52,020,000 |
-| Human Resources Specialists | 73149.09 | 917.5 | 79,730,000 |
-| Computer Systems Analysts | 55733.69 | 497.8 | 111,960,000 |
-| Computer User Support Specialists | 45311.68 | 697.2 | 64,990,000 |
-| Personal Financial Advisors | 43333.60 | 270.5 | 160,210,000 |
-| Medical Secretaries and Administrative Assistants | 37866.04 | 830.8 | 45,580,000 |
-| Human Resources Managers | 34586.65 | 215.5 | 160,480,000 |
-| Sales Representatives, Wholesale and Manufacturing | 33660.86 | 293.9 | 114,520,000 |
-| Network and Computer Systems Administrators | 32236.10 | 318.6 | 101,190,000 |
-| Training and Development Specialists | 32204.35 | 436.6 | 73,760,000 |
-| Mechanical Engineers | 31566.54 | 286.8 | 110,080,000 |
-| Production, Planning, and Expediting Clerks | 23261.70 | 385.0 | 60,420,000 |
-| Information Security Analysts | 22918.59 | 179.4 | 127,730,000 |
-| Public Relations Specialists | 22534.18 | 280.6 | 80,310,000 |
-| Producers and Directors | 16601.46 | 145.3 | 114,280,000 |
-| Graphic Designers | 14700.38 | 214.3 | 68,610,000 |
-| Purchasing Managers | 12237.18 | 81.2 | 150,630,000 |
+| Computer and Information Systems Managers | 121.4 | 646.0 | 187,990 |
+| Secretaries and Administrative Assistants, Except Legal, Medical, and Executive | 82.8 | 1,737.8 | 47,640 |
+| Medical and Health Services Managers | 77.9 | 565.8 | 137,730 |
+| Human Resources Specialists | 73.1 | 917.5 | 79,730 |
+| Computer Systems Analysts | 55.7 | 497.8 | 111,960 |
+| Computer User Support Specialists | 45.3 | 697.2 | 64,990 |
+| Personal Financial Advisors | 43.3 | 270.5 | 160,210 |
+| Medical Secretaries and Administrative Assistants | 37.9 | 830.8 | 45,580 |
+| Human Resources Managers | 34.6 | 215.5 | 160,480 |
+| Sales Representatives, Wholesale and Manufacturing, Technical and Scientific Products | 33.7 | 293.9 | 114,520 |
+| Network and Computer Systems Administrators | 32.2 | 318.6 | 101,190 |
+| Training and Development Specialists | 32.2 | 436.6 | 73,760 |
+| Mechanical Engineers | 31.6 | 286.8 | 110,080 |
+| Production, Planning, and Expediting Clerks | 23.3 | 385.0 | 60,420 |
+| Information Security Analysts | 22.9 | 179.4 | 127,730 |
+| Public Relations Specialists | 22.5 | 280.6 | 80,310 |
+| Producers and Directors | 16.6 | 145.3 | 114,280 |
+| Graphic Designers | 14.7 | 214.3 | 68,610 |
+| Purchasing Managers | 12.2 | 81.2 | 150,630 |
+| Insurance Claims and Policy Processing Clerks | 11.9 | 229.1 | 51,980 |
 
 ## Caveats
 
-- Mean annual wage is from the upstream BLS M2024 join provided in WORKBank metadata. Stored as $1000s; converted to dollars here.
-- Employment is total occupation-level US employment, not the share of that occupation's wage bill exposed to the migrating tasks. A pessimistic upper-bound interpretation.
-- A finer-grained estimate would weight by task `Importance × Frequency × Relevance` to apportion an occupation's wage bill across its tasks; see `reports/weighted_aggregation.md`.
+- Mean annual wage and employment come from the upstream BLS M2024 join provided in WORKBank metadata.
+- Employment is total occupation-level U.S. employment, not the share of that occupation's wage bill exposed to the migrating tasks. This is an upper-bound exposure view.
+- A finer-grained estimate would weight each occupation's wage bill by task importance, frequency, and relevance.

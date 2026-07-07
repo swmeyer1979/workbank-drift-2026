@@ -4,9 +4,9 @@
 
 Stanford SALT Lab's WORKBank classified 844 jobs into 4 zones by worker-desire × AI-capability in mid-2025. I rescored the capability axis against the April-2026 frontier:
 
-- 97.6% of tasks now score ≥3 (up from 75%)
-- R&D Opportunity zone: 107 → 12 tasks
-- Low Priority zone: 106 → 8 tasks
+- 97.3% of tasks now score ≥3 (up from 75%)
+- R&D Opportunity zone: 107 → 16 tasks
+- Low Priority zone: 106 → 7 tasks
 
 The 2x2 collapsed.
 
@@ -21,7 +21,7 @@ Re-ran Stanford's WORKBank capability scores against 2026 frontier models.
 The "41% of YC startups target misaligned tasks" headline still holds.
 
 But the composition flipped:
-- Low Priority share: 11.8% → 0.5%
+- Low Priority share: 11.8% → 0.4%
 - Red Light share: 29.4% → 40.7%
 
 Same number, different meaning.
@@ -30,7 +30,7 @@ Same number, different meaning.
 
 ## Variant C — single fact
 
-In April 2026, frontier AI agents self-assess as capable on **97.6%** of the 844 tasks Stanford WORKBank surveyed in 2025.
+In April 2026, frontier AI agents self-assess as capable on **97.3%** of the 844 tasks Stanford WORKBank surveyed in 2025.
 
 In May 2025 it was 75%.
 
@@ -42,7 +42,7 @@ The two-axis desire-vs-capability framework no longer separates.
 
 Tasks where workers said "no, don't automate this" but 2026 frontier crossed feasibility anyway:
 
-- 102 tasks
+- 101 tasks
 - 9.4M U.S. workers
 - ~$850B annual wage bill
 - 65.5% female-weighted (vs 47% baseline)

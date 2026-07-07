@@ -1,6 +1,6 @@
 # WORKBank Drift 2026 — Methodology
 
-**Goal:** recompute the `Automation Capacity Rating` column of Stanford SALT Lab's WORKBank (data collected Jan–May 2025) against the April-2026 frontier (Claude Opus 4.7, Kimi K2.6, GPT-5.5), hold `Automation Desire Rating` constant, and publish the zone migrations.
+**Goal:** recompute the `Automation Capacity Rating` column of Stanford SALT Lab's WORKBank (data collected Jan–May 2025) against the April-2026 frontier (Codex OAuth GPT-5.5 xhigh, Kimi K2.6, OpenAI GPT-5.5), hold `Automation Desire Rating` constant, and publish the zone migrations.
 
 This is a drift study, not a re-audit. Worker desire is treated as a fixed prior.
 
@@ -58,9 +58,9 @@ Three independent frontier models, called in parallel per task:
 
 | Model | Role |
 |---|---|
-| Claude Opus 4.7 | rater A |
-| Moonshot Kimi K2.6 | rater B (replaced Gemini 3 Pro mid-pipeline due to API quota) |
-| GPT-5.5 | rater C |
+| Codex OAuth GPT-5.5 xhigh | rater A |
+| Moonshot Kimi K2.6 | rater B |
+| OpenAI GPT-5.5 | rater C |
 
 Rationale for n=3: the upstream dataset averages 2.4 expert ratings per task (range 1–5). Three uniform ratings per task gives *tighter* coverage than the upstream mean and is cheap enough for 844 tasks × 3 = 2,532 calls.
 
@@ -85,7 +85,7 @@ Mirrors the codebook's `Automation Capacity Rating` definition ("how capable cur
 | **1** | Cannot be done at all. Task requires physical embodiment, real-time sensor access, or continuous interpersonal judgment that current agents cannot deliver. |
 | **2** | Demo-level only. Single model may produce a passable artifact with heavy prompting, but reliability < 50% in an agentic loop. Needs a human to finish. |
 | **3** | Works with supervision. An agent can complete the core task when scaffolded (tool access, retry, verification step), but a domain expert must review outputs before use. |
-| **4** | Works reliably. Off-the-shelf agent (e.g., Claude Opus 4.7 + standard tools) completes the task end-to-end for the typical case; a human only sees edge-case escalations. |
+| **4** | Works reliably. Off-the-shelf agent (e.g., frontier agent + standard tools) completes the task end-to-end for the typical case; a human only sees edge-case escalations. |
 | **5** | Fully automated. Agent matches or exceeds typical human performance on the full distribution of cases. Human involvement adds no value beyond governance. |
 
 ### 3.4 Benchmark anchors (ground the rating)
@@ -94,7 +94,7 @@ Every task-type is mapped to ≥1 published April-2026 benchmark result. Raters 
 
 | Task family | Anchor benchmark(s) | Frontier score (2026-04, to pin in `benchmarks.yaml`) |
 |---|---|---|
-| Software engineering | SWE-bench Verified | Claude Opus 4.7 — verified score TBD at build time |
+| Software engineering | SWE-bench Verified | Codex OAuth GPT-5.5 xhigh / OpenAI GPT-5.5 — verified score TBD at build time |
 | Multi-step web agent | WebArena, GAIA | TBD |
 | Desktop / OS control | OSWorld | TBD |
 | General knowledge / reasoning | MMLU-Pro, GPQA Diamond | TBD |
@@ -144,9 +144,9 @@ One row per task (n ≈ 844):
 | `desire_2025` | WORKBank worker-mean |
 | `capability_2025` | WORKBank expert-mean |
 | `zone_2025` | derived (§2) |
-| `capability_opus_4_7` | rater A |
-| `capability_kimi_k2_6` | rater B |
-| `capability_gpt_5_5` | rater C |
+| `capability_score_codex_gpt_5_5_xhigh` | rater A |
+| `capability_score_kimi_k2_6` | rater B |
+| `capability_score_gpt_5_5` | rater C |
 | `capability_2026_median` | median of A/B/C |
 | `capability_2026_mean` | mean of A/B/C |
 | `zone_2026` | derived from median |
@@ -185,7 +185,7 @@ Human Agency Scale is present in both upstream tables. We recompute it in parall
 2. **Aggregation rule** — median (our proposal) vs mean (matches upstream exactly). We can ship both columns either way; the question is which drives `zone_2026`.
 3. **Author calibration set size** — 50 feels like the floor. Willing to do 100 if you want tighter κ CIs, but it's ~2 hrs of your time.
 4. **HAS drift** — ship alongside capability drift, or save for a second post?
-5. **Agentic-execution validation** — upstream's rubric implicitly assumes an expert watched an agent try the task. We don't. Do we spot-check 20 tasks by actually running an agent (Claude Opus 4.7 + Anthropic computer-use or equivalent) and comparing its completion to our predicted score? Adds ~1 day, materially strengthens defensibility.
+5. **Agentic-execution validation** — upstream's rubric implicitly assumes an expert watched an agent try the task. We don't. Do we spot-check 20 tasks by actually running an agent (frontier browser agent or equivalent) and comparing its completion to our predicted score? Adds ~1 day, materially strengthens defensibility.
 6. **Scoring budget** — 844 tasks × 3 models × ~3k tokens ≈ $60–120 total. Approve.
 
 Once these are resolved, scoring pipeline runs against the approved rubric.
